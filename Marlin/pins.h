@@ -1536,9 +1536,13 @@
 #define X_MIN_PIN          37
 #define X_MAX_PIN          36
 
-#define Y_STEP_PIN         54
-#define Y_DIR_PIN          47
-#define Y_ENABLE_PIN       55
+// ORIGINAL SETTINGS:
+//#define Y_STEP_PIN         54
+//#define Y_DIR_PIN          47
+//#define Y_ENABLE_PIN       55
+#define Y_STEP_PIN         29
+#define Y_DIR_PIN          28
+#define Y_ENABLE_PIN       39
 #define Y_MIN_PIN          35
 #define Y_MAX_PIN          34
 
@@ -1556,13 +1560,17 @@
 #define E1_DIR_PIN         25
 #define E1_ENABLE_PIN      27
 
-#define E2_STEP_PIN        29
-#define E2_DIR_PIN         28
-#define E2_ENABLE_PIN      39
+// ORIGINAL SETTINGS:
+//#define E2_STEP_PIN        29
+//#define E2_DIR_PIN         28
+//#define E2_ENABLE_PIN      39
+#define E2_STEP_PIN        54
+#define E2_DIR_PIN         47
+#define E2_ENABLE_PIN      55
 
 #define LED_PIN            13
 
-#define FAN_PIN            7
+#define FAN_PIN             7
 //additional FAN1 PIN (e.g. useful for electronics fan or light on/off) on PIN 8
 
 #define PS_ON_PIN          45
