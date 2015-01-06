@@ -1,4 +1,9 @@
-Marlin is moving
+Marlin has moved
+
+The new location is https://github.com/MarlinFirmware/Marlin
+
+This location will not be updated
+
 ===================
 We are moving marlin, this is to allow changes like adding collabs faster
 
