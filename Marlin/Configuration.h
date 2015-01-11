@@ -134,7 +134,7 @@
 // 110 is Pt100 with 1k pullup (non standard)
 // 70 is 500C thermistor for Pico hot end
 
-#define TEMP_SENSOR_0 5
+#define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_BED 1
@@ -159,7 +159,7 @@
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
 // You should use MINTEMP for thermistor short/failure protection.
-#define HEATER_0_MAXTEMP 275
+#define HEATER_0_MAXTEMP 300
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define BED_MAXTEMP 120
@@ -176,14 +176,14 @@
 // PID settings:
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-#define BANG_MAX 52 // limits current to nozzle while in bang-bang mode; 255=full current
-#define PID_MAX 52 // limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
+#define BANG_MAX 255 // limits current to nozzle while in bang-bang mode; 255=full current
+#define PID_MAX 255 // limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #ifdef PIDTEMP
   //#define PID_DEBUG // Sends debug data to the serial port.
   //#define PID_OPENLOOP 1 // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
-  #define PID_FUNCTIONAL_RANGE 25 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
                                   // is more then PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
-  #define PID_INTEGRAL_DRIVE_MAX 52  //limit for the integral term
+  #define PID_INTEGRAL_DRIVE_MAX 255  //limit for the integral term
   #define K1 0.95 //smoothing factor within the PID
   #define PID_dT ((OVERSAMPLENR * 8.0)/(F_CPU / 64.0 / 256.0)) //sampling period of the temperature routine
 
@@ -204,9 +204,9 @@
 //    #define  DEFAULT_Kd 440
 
 // E3D v5, autotune 1
-    #define  DEFAULT_Kp 5.32
-    #define  DEFAULT_Ki 0.46
-    #define  DEFAULT_Kd 15.33
+    #define  DEFAULT_Kp 17.66
+    #define  DEFAULT_Ki 1.07
+    #define  DEFAULT_Kd 72.90
 
 #endif // PIDTEMP
 
@@ -220,7 +220,7 @@
 // If your configuration is significantly different than this and you don't understand the issues involved, you probably
 // shouldn't use bed PID until someone else verifies your hardware works.
 // If this is enabled, find your own PID constants below.
-#define PIDTEMPBED
+//#define PIDTEMPBED
 //
 //#define BED_LIMIT_SWITCHING
 
@@ -352,14 +352,14 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define E_ENABLE_ON 0 // For all extruders
 
 // Disables axis when it's not being used.
-#define DISABLE_X true
-#define DISABLE_Y true
-#define DISABLE_Z true
-#define DISABLE_E true // For all extruders
+#define DISABLE_X false
+#define DISABLE_Y false
+#define DISABLE_Z false
+#define DISABLE_E false // For all extruders
 #define DISABLE_INACTIVE_EXTRUDER true //disable only inactive extruders and keep active extruder enabled
 
 #define INVERT_X_DIR true    // for Mendel set to false, for Orca set to true
-#define INVERT_Y_DIR false    // for Mendel set to true, for Orca set to false
+#define INVERT_Y_DIR true    // for Mendel set to true, for Orca set to false
 #define INVERT_Z_DIR true     // for Mendel set to false, for Orca set to true
 #define INVERT_E0_DIR true   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E1_DIR false    // for direct drive extruder v9 set to true, for geared extruder set to false
@@ -375,7 +375,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // Travel limits after homing
-#define X_MAX_POS 195
+#define X_MAX_POS 190
 #define X_MIN_POS 0
 #define Y_MAX_POS 175
 #define Y_MIN_POS 0
@@ -493,12 +493,15 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.8177, 78.8177, 2520, 92.6}  // steps per unit, Ord bot 1/16 stepping
-#define DEFAULT_MAX_FEEDRATE          {500, 500, 5, 25}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {1000,1000,5,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+//#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.81, 78.81, 2560, 94.1}  // steps per unit, Ord bot 1/16 stepping
+// 20mm cube calibration, form futura PLA
+// E adjusted down from 94.1
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {78.82, 78.82, 2560, 92.1}  // steps per unit, Ord bot 1/16 stepping
+#define DEFAULT_MAX_FEEDRATE          {500, 500, 3, 25}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION          500    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  500   // X, Y, Z and E max acceleration in mm/s^2 for retracts
+#define DEFAULT_ACCELERATION          2000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  3000    // X, Y, Z and E max acceleration in mm/s^2 for retracts
 
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
@@ -507,7 +510,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 // #define EXTRUDER_OFFSET_Y {0.0, 5.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK                20.0    // (mm/sec)
+#define DEFAULT_XYJERK                10.0 // Was 20    // (mm/sec)
 #define DEFAULT_ZJERK                 0.4     // (mm/sec)
 #define DEFAULT_EJERK                 5.0    // (mm/sec)
 
